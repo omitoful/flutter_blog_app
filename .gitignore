@@ -1,0 +1,133 @@
+# ------------------------------------------------------------------------------
+# Flutter & Dart core
+# ------------------------------------------------------------------------------
+.dart_tool/
+.fvm/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+# Option-1: Ignore build cache/outputs & generated files
+*.dart_tool
+*.g.dart
+*.freezed.dart
+
+# Option-2: If you want to commit generated files (e.g., for build_runner), 
+# uncomment the above two lines and comment out if needed.
+
+# ------------------------------------------------------------------------------
+# Symbol files & App Packages
+# ------------------------------------------------------------------------------
+*.apk
+*.aab
+*.app
+*.cab
+*.msi
+*.msix
+*.deb
+*.rpm
+*.dmg
+*.pkg
+*.ipa
+*.bundle
+
+# ------------------------------------------------------------------------------
+# Android specific
+# ------------------------------------------------------------------------------
+android/.gradle/
+android/captures/
+android/gradleApp.setting
+android/local.properties
+android/key.properties
+android/app/key.properties
+android/app/build/
+android/app/debug/
+android/app/release/
+*.keystore
+*.jks
+
+# ------------------------------------------------------------------------------
+# iOS & macOS specific
+# ------------------------------------------------------------------------------
+**/docsets
+*.xcworkspace
+!.vscode/*.xcworkspace
+*.xccheckout
+*.moved-aside
+*.app
+*.ipa
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+*.project.xcworkspace
+!default.project.xcworkspace
+xcuserdata/
+*.xcode.env.local
+
+# CocoaPods
+ios/Pods/
+ios/Podfile.lock
+ios/.symlinks/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flttmp
+ios/DerivedData/
+
+macOS/Pods/
+macOS/Podfile.lock
+macOS/Flutter/ephemeral/
+macOS/DerivedData/
+
+# ------------------------------------------------------------------------------
+# Web specific
+# ------------------------------------------------------------------------------
+lib/generated_plugin_registrant.dart
+
+# ------------------------------------------------------------------------------
+# Windows & Linux specific
+# ------------------------------------------------------------------------------
+windows/flutter/ephemeral/
+linux/flutter/ephemeral/
+
+# ------------------------------------------------------------------------------
+# IDEs & Editors
+# ------------------------------------------------------------------------------
+# VS Code
+.vscode/
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Mac OS metadata
+.DS_Store
+.cfusertext
+.Trash/
+
+# Windows metadata
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ------------------------------------------------------------------------------
+# Environment Variables & Secrets
+# ------------------------------------------------------------------------------
+.env*
+!.env.example
