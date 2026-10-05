@@ -11,7 +11,7 @@ Future<ApiResponse> login(String email, String password) async {
   try {
     final response = await http.post(
       Uri.parse(loginURL),
-      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+      headers: {'Accept': 'application/json'},
       body: {'email': email, 'password': password},
     );
 
@@ -39,7 +39,7 @@ Future<ApiResponse> register(String name, String email, String password) async {
   try {
     final response = await http.post(
       Uri.parse(registerURL),
-      headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+      headers: {'Accept': 'application/json'},
       body: {
         'name': name,
         'email': email,
