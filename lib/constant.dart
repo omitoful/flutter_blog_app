@@ -46,7 +46,7 @@ Expanded likeAndCommentsBtn(int value, IconData icon, Color color, Function onTa
   return Expanded(
     child: Material(
       child: InkWell(
-        onTap: () => onTap,
+        onTap: () => onTap(),
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Row(

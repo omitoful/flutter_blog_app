@@ -112,3 +112,27 @@ Future<ApiResponse> deletePost(int postId) async {
   }
   return apiResponse;
 }
+
+Future<ApiResponse> likeOrUnlikePost(int postId) async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    final response = await http.post(
+      Uri.parse('$postsURL/$postId/likes'),
+      headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'},
+    );
+
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = jsonDecode(response.body)['message'];
+        break;
+      case 401:
+        apiResponse.error = unauthorized;
+      default:
+        apiResponse.error = somethingWentWrong;
+    }
+  } catch (e) {
+    apiResponse.error = serverError + e.toString();
+  }
+  return apiResponse;
+}

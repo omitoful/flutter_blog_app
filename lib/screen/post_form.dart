@@ -3,12 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_blog_app/constant.dart';
 import 'package:flutter_blog_app/model/api_response.dart';
+import 'package:flutter_blog_app/model/post.dart';
 import 'package:flutter_blog_app/screen/login.dart';
 import 'package:flutter_blog_app/service/post_service.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PostForm extends StatefulWidget {
-  const PostForm({super.key});
+  const PostForm({super.key, this.post, this.title});
+  final Post? post;
+  final String? title;
 
   @override
   State<PostForm> createState() => _PostFormState();
@@ -51,34 +54,64 @@ class _PostFormState extends State<PostForm> {
     }
   }
 
+  void _editPost(int postId) async {
+    ApiResponse response = await editPost(postId, _txtControllerBody.text);
+    if (!mounted) return;
+    if (response.error == null) {
+      Navigator.of(context).pop();
+    } else if (response.error == unauthorized) {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => Login()),
+        (route) => false,
+      );
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('${response.error}')));
+      setState(() {
+        _loading = !_loading;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    if (widget.post != null) {
+      _txtControllerBody.text = widget.post!.body ?? '';
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Add new post')),
+      appBar: AppBar(title: Text(widget.title ?? 'Add new post')),
       body: (_loading)
           ? Center(child: CircularProgressIndicator())
           : ListView(
               children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    image: _imageFile == null
-                        ? null
-                        : DecorationImage(
-                            image: FileImage(_imageFile ?? File('')),
-                            fit: BoxFit.cover,
+                widget.post != null
+                    ? SizedBox()
+                    : Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          image: _imageFile == null
+                              ? null
+                              : DecorationImage(
+                                  image: FileImage(_imageFile ?? File('')),
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                        child: Center(
+                          child: IconButton(
+                            icon: Icon(Icons.image, size: 50, color: Colors.black38),
+                            onPressed: () {
+                              _getImage();
+                            },
                           ),
-                  ),
-                  child: Center(
-                    child: IconButton(
-                      icon: Icon(Icons.image, size: 50, color: Colors.black38),
-                      onPressed: () {
-                        _getImage();
-                      },
-                    ),
-                  ),
-                ),
+                        ),
+                      ),
                 Form(
                   key: _formKey,
                   child: Padding(
@@ -104,7 +137,11 @@ class _PostFormState extends State<PostForm> {
                       setState(() {
                         _loading = !_loading;
                       });
-                      _createPost();
+                      if (widget.post == null) {
+                        _createPost();
+                      } else {
+                        _editPost(widget.post?.id ?? 0);
+                      }
                     }
                   }),
                 ),
