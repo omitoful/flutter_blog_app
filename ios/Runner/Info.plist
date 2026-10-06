@@ -66,5 +66,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <!-- 👇 新增：1. 允許 HTTP 網路傳輸 (解決 iOS 模擬器連本機 Laravel API 被阻擋) -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+
+    <!-- 👇 新增：2. 存取相簿與相機權限提示 (解決使用 image_picker 上傳圖片時閃退) -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>需要存取您的相簿以選擇文章照片或頭像</string>
+    <key>NSCameraUsageDescription</key>
+    <string>需要存取您的相機以拍攝照片並發表文章</string>
 </dict>
 </plist>

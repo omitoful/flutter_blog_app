@@ -1,4 +1,7 @@
 // ----- STRINGS -----
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 const baseURL = 'http://127.0.0.1:8000/api';
@@ -31,5 +34,31 @@ TextButton textButton(String title, Function onPressed) {
     ),
     onPressed: () => onPressed(),
     child: Text(title, style: TextStyle(color: Colors.white)),
+  );
+}
+
+String? getStringImage(File? file) {
+  if (file == null) return null;
+  return base64Encode(file.readAsBytesSync());
+}
+
+Expanded likeAndCommentsBtn(int value, IconData icon, Color color, Function onTap) {
+  return Expanded(
+    child: Material(
+      child: InkWell(
+        onTap: () => onTap,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 16, color: color),
+              SizedBox(width: 4),
+              Text('$value'),
+            ],
+          ),
+        ),
+      ),
+    ),
   );
 }
