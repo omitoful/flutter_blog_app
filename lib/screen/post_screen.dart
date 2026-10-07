@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blog_app/model/api_response.dart';
 import 'package:flutter_blog_app/model/post.dart';
+import 'package:flutter_blog_app/screen/comment_screen.dart';
 import 'package:flutter_blog_app/screen/login.dart';
 import 'package:flutter_blog_app/screen/post_form.dart';
 import 'package:flutter_blog_app/service/post_service.dart';
@@ -194,7 +195,13 @@ class _PostScreenState extends State<PostScreen> {
                             post.commentsCount ?? 0,
                             Icons.sms_outlined,
                             Colors.black54,
-                            () {},
+                            () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => CommentScreen(postId: post.id),
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
